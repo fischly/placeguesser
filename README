@@ -1,3 +1,11 @@
 Placeguesser
 
 A project to challenge your friends who's got the better geographical knowlegde.
+
+
+Hinweise: 
+Login funktiert nur solage nicht f5 gedrückt wird -> wird noch gefixt
+Verschlüsselte übertragung -> kommt noch
+Registert legt neues Account an, aber wird noch nicht überprüft, ob ein Benutzername/email exisitert -> zu fixen
+Game-Component -> wird noch hinzugefügt
+Layout+Design -> kommt zum Schluss
