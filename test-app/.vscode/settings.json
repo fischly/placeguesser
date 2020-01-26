@@ -1,0 +1,50 @@
+{
+  // "editor.autoIndent": "full",
+  // "editor.codeLens": false,
+  // "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": true,
+  "editor.cursorStyle": "line",
+
+  // "editor.fontFamily": "\"Dank Mono, Operator Mono, Fira Code, Inconsolata, Menlo\","
+  "editor.fontSize": 16,
+  "editor.fontLigatures": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": false,
+  "editor.formatOnSave": true,
+  "editor.letterSpacing": 0.2,
+  "editor.lineHeight": 24,
+  //   "editor.minimap.enabled": false
+  "editor.renderWhitespace": "none",
+  "editor.tabCompletion": "on",
+  "editor.tabSize": 2,
+  "editor.wordWrap": "off",
+
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/*.js": {
+      "when": "$(basename).ts"
+    },
+    "**/*.js.map": {
+      "when": "$(basename)"
+    }
+  },
+  "files.defaultLanguage": "typescript",
+  "files.trimTrailingWhitespace": true,
+
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 100,
+
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+
+  "prettier.jsxSingleQuote": true
+}

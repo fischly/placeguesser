@@ -1,0 +1,26 @@
+/* #map-container:hover {
+  width: 20%;
+  height: 20%;
+}
+
+#gmap:hover {
+  width: 400px;
+  height: 400px;
+}
+
+#gmap {
+  width: 20%;
+  height: 20%;
+} */
+
+/* #gmap:focus {
+  width: 400px;
+  height: 400px;
+} */
+
+#gmap {
+  /* float: right; */
+  position: absolute;
+  right: 0px;
+  z-index: 1100;
+}

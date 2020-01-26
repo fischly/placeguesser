@@ -1,0 +1,7 @@
+Problems:
+	event binding
+	state managament
+	google maps api + compiler
+	streetview date, openstreetview data manipulate
+	calculations
+	

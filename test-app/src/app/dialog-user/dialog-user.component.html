@@ -1,0 +1,21 @@
+<h2>Change Username</h2>
+<mat-dialog-content [formGroup]="user">
+
+  
+
+ 
+        <label>New Username:</label>
+        <input matInput type="text" placeholder="username" formControlName="newuser">
+        
+
+
+    
+
+ 
+
+</mat-dialog-content>
+<span>{{message}}</span>
+<mat-dialog-actions>
+    <button mat-button (click)="sendData()">Confirm</button>
+    <button mat-button mat-dialog-close mat-dialog-close="false">Abort</button>
+</mat-dialog-actions>

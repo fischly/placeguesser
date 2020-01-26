@@ -1,0 +1,29 @@
+<h1>Create Account</h1>
+
+<div>
+
+    <p>Type in the form to get registered:</p>
+    <br>
+
+    <form [formGroup]="userform" (ngSubmit)="onFormSubmit()">
+        <label>Username:</label>
+        <input type="text" formControlName="username">
+        <label>Email:</label>
+        <input type="email" formControlName="email">
+        <label>Password:</label>
+        <input type ="password" formControlName="pass">
+        <label>Confirm Password:</label>
+        <input type="password" formControlName="passc">
+        <input type="submit">
+        <span>{{Msg}}</span>
+        
+    </form>
+
+    
+    
+
+    <p>Already registered? Click here to <a routerLink="/login">login</a></p>
+
+
+
+</div>

@@ -1,0 +1,12 @@
+{
+    "database": {
+        "host": "localhost",
+        "user": "postgres",
+        "password": "password",
+        "db": "placeguesser"
+    },
+    "server": {
+        "host": "localhost",
+        "port": 3000
+    }
+}

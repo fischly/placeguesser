@@ -1,0 +1,13 @@
+<div id="result-container">
+  <div class="result-box-flex-2"></div>
+  <div id="result-main-box">
+    <h3>Your results</h3>
+    <p>Your score is {{ this.getDistance() }}</p>
+    <p>
+      <input type="button" value="Save to favorites">
+      <input type="button" value="Rate">
+      <input type="button" value="Next!" (click)="onClickNext()">
+    </p>
+  </div>
+  <div class="result-box-flex-2"></div>
+</div>

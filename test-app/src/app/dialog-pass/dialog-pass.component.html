@@ -1,0 +1,24 @@
+<h2>Change Password</h2>
+<mat-dialog-content [formGroup]="passwords">
+
+  
+
+ 
+        <label>Old password:</label>
+        <input matInput type="password" placeholder="Old password" formControlName="oldpass">
+        <label>New password:</label>
+        <input matInput type="password" placeholder="New password" formControlName="pass">
+        <label>Confirm new password:</label>
+        <input matInput type="password" placeholder="New password" formControlName="passc">
+
+
+    
+
+ 
+
+</mat-dialog-content>
+<span>{{message}}</span>
+<mat-dialog-actions>
+    <button mat-button (click)="sendData()">Confirm</button>
+    <button mat-button mat-dialog-close mat-dialog-close="false">Abort</button>
+</mat-dialog-actions>

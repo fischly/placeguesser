@@ -1,0 +1,29 @@
+#result-container {
+  width: 100%;
+  z-index: 1002;
+  padding-top: 1em;
+  /* height: ; */
+  color: white;
+  text-align: center;
+  font-size: 1.4em;
+
+  position: absolute;
+  display: flex;
+}
+/* nav: #483D8B */
+#result-main-box {
+  background-color: #ffb169; /* #cca750;*/
+  /* border: 0.3em solid #523700; */
+  /* border-radius: 15px; */
+  box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.75);
+  flex: 4;
+}
+
+.result-box-flex-2 {
+  flex: 1;
+}
+
+input[type='button'] {
+  margin: 5px;
+  font-size: 0.7em;
+}

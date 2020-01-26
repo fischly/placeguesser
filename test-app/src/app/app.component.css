@@ -1,0 +1,20 @@
+#main-nav {
+  /* position: fixed; */
+  height: 5%;
+  background-color: darkslateblue;
+  color: white;
+  display: flex;
+  /* flex-grow: 1; */
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+#main-nav a {
+  color: white;
+  flex-grow: 1;
+}
+
+#main-nav button {
+  flex-grow: 1;
+}

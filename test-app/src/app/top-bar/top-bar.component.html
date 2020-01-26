@@ -1,0 +1,18 @@
+<div id="topnav" class="topnav">
+  <div class="topbar-left topbar" style="width: 100%; overflow: hidden; height: 44px;">
+    <a class="topnav-icon topbar-left topnav-bar-item">Hello World 1</a>
+    <a class="topnav-icon topbar-left topnav-bar-item">Hello World 2</a>
+  </div>
+
+</div>
+
+<a [routerLink]="['/']">
+  <h1>My Store</h1>
+</a>
+
+<a [routerLink]="['/pl/39']">to product 39</a>
+
+<a [routerLink]="['/cart']" routerLinkActive="router-link-active" class="button fancy-button">
+  <i class="material-icons" style="padding: 20px;">ICON</i>
+  Checkout
+</a>

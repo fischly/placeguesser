@@ -1,0 +1,29 @@
+<!-- <app-top-bar></app-top-bar>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+
+<app-pano-view id="pano-view"></app-pano-view> -->
+
+<nav id="main-nav">
+
+  <a routerLink="/home">Home</a>
+  <a *ngIf="!check" routerLink="/account">Create Account</a>
+  <a routerLink="/qguide">Quick Guide</a>
+
+  <a *ngIf="check" routerLink="/profile">Profile</a>
+  <a routerLink="/highscores">Highscores</a>
+  <a routerLink="/about">About</a>
+  <button *ngIf="!check" (click)="login()">login</button>
+  <button *ngIf="check" (click)="onclick()">logout</button>
+
+  <a style="float: right;" (click)="onClickSubmit()">Submit</a>
+
+</nav>
+
+<div></div>
+
+
+
+<router-outlet></router-outlet>

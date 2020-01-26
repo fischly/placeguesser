@@ -1,0 +1,15 @@
+#pano {
+  position: absolute;
+  height: 90%;
+  width: 100%;
+
+  /* background-color: green; */
+  /* border: 2px solid red; */
+}
+
+#pano-nav {
+  /* float: left; */
+  /* display: inline; */
+  float: left;
+  z-index: 1000;
+}
