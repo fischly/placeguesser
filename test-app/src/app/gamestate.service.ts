@@ -10,6 +10,7 @@ export class GamestateService {
   private currentState: GameState;
   private currentLocation: any;
   private currentMapMarker: any;
+  private currentLocationId = -1;
 
   callbacks: Array<(value: any) => void>;
 
@@ -23,9 +24,11 @@ export class GamestateService {
     this.callbacks.push(callback);
   }
 
-  stateNewRound(newLocation) {
+  stateNewRound(newLocation, newLocationId = -1) {
     this.currentState = GameState.NEW_ROUND;
     this.currentLocation = newLocation;
+    this.currentLocationId = newLocationId;
+    console.log('NEW LOCATION ID: ', this.currentLocationId);
 
     this.callbacks.forEach(cb => {
       cb({ state: this.currentState, location: this.currentLocation });
@@ -48,12 +51,22 @@ export class GamestateService {
     });
   }
 
+  stateById(id) {
+    this.currentState = GameState.LOCATION_ID;
+    this.currentLocationId = id;
+    console.log('game state by id with id: ', id);
+  }
+
   getCurrentLocation() {
     return this.currentLocation;
   }
 
   getCurrentState() {
     return this.currentState;
+  }
+
+  gutCurrentLocationId() {
+    return this.currentLocationId;
   }
 
   setCurrentMapMarker(newMapMarker) {

@@ -10,6 +10,7 @@ declare const google: any;
 export class PosutilService {
   RANDOM_POS_URL = 'http://localhost:3000/getPosition/random';
   CITY_POS_URL = 'http://localhost:3000/getPosition/city_eu';
+  CITY_POS_BYID_URL = 'http://localhost:3000/getPosition/city_eu/'; // + id
 
   serviceProvider: google.maps.StreetViewService;
   radius;
@@ -54,14 +55,42 @@ export class PosutilService {
         .get(this.CITY_POS_URL)
         .toPromise()
         .then((data: any) => {
-          // console.log('GOT CITY POSITION: ', data);
+          console.log('GOT CITY POSITION: ', data);
 
           this.getViewFromLatLng(new google.maps.LatLng(data.lat, data.lon))
-            .then(latLon => resolve(latLon))
+            .then((latLon: any) => {
+              latLon.ownId = data.id;
+              console.log('latLong with id:', latLon);
+              resolve(latLon);
+            })
             .catch(err => reject(err));
         })
         .catch(err => {
           console.log('ERROR FETCHING CITY POSITION: ', err);
+          reject(err);
+        });
+    });
+  }
+
+  fetchCityById(id) {
+    return new Promise((resolve, reject) => {
+      this.httpClient
+        .get(this.CITY_POS_BYID_URL + id)
+        .toPromise()
+        .then((data: any) => {
+          console.log('GOT CITY BY ID POSITION: ', data);
+
+          this.getViewFromLatLng(new google.maps.LatLng(data.lat, data.lon))
+            .then((latLon: any) => {
+              latLon.ownId = data.id;
+              console.log('latLong with id:', latLon);
+              resolve(latLon);
+            })
+            .catch(err => reject(err));
+        })
+        .catch(err => {
+          console.log('ERROR FETCHING CITY BY ID: ', err);
+          reject(err);
         });
     });
   }

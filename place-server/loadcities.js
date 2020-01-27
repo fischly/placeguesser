@@ -9,6 +9,23 @@ function getCity() {
     return cities.cities[index];
 }
 
+function getCityById(id) {
+    let foundCity = null;
+    for (let i = 0; i < cities.cities.length; i++) {
+        if (cities.cities[i].id == id) {
+            // console.log('found city:)
+            foundCity = cities.cities[i];
+            break;
+        }
+    }
+
+    if (foundCity) {
+        return foundCity;
+    }
+    return null;
+}
+
 module.exports = {
     getCity,
+    getCityById
 };

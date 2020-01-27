@@ -19,6 +19,8 @@ export class ResultViewComponent implements OnInit {
   }
 
   getDistance() {
-    return Math.floor(this.gameStateService.getResultDistance()).toLocaleString() + ' meter!';
+    return (
+      Math.floor(this.gameStateService.getResultDistance() / 1000).toLocaleString() + ' kilometer!'
+    );
   }
 }

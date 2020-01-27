@@ -9,6 +9,8 @@ import { GameState } from '../GameStateEnum';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  givenParamId = -1;
+
   constructor(private route: ActivatedRoute, private gameStateService: GamestateService) {}
 
   // protected showSubmit;
@@ -18,13 +20,25 @@ export class HomeComponent implements OnInit {
     //   console.log('param: ', p.get('id'));
     // });
     // this.showSubmit = this.gameStateService.getCurrentState() === GameState.SHOW_RESULT;
-
-    this.route.paramMap.forEach(pm => {
-      let id = pm.get('id');
-      if (id) {
-        // TODO: make call to fetch streetview to specific id
-      }
-    });
+    // for (const idIterator in this.route.params) {
+    //   console.log('id iterator: ', idIterator, this.route.params[idIterator]);
+    // }
+    let idValue = this.route.params['_value'].id;
+    if (idValue && !isNaN(idValue)) {
+      this.givenParamId = idValue;
+      this.gameStateService.stateById(this.givenParamId);
+      console.log('setting givenParamId: ', this.givenParamId);
+    }
+    // this.route.paramMap.forEach(pm => {
+    //   let id = pm.get('id');
+    //   if (id) {
+    //     // TODO: make call to fetch streetview to specific id
+    //     // this.gameStateService.stateNewRound();
+    //     // this.gameStateService.stateById(id);
+    //     this.givenParamId = +id;
+    //     console.log('setting givenParamId: ', this.givenParamId);
+    //   }
+    // });
   }
 
   showSubmit() {

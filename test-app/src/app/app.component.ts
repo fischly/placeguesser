@@ -18,7 +18,10 @@ export class AppComponent implements OnInit {
     private gameStateService: GamestateService
   ) {}
 
-  protected check = this.userverice.getStatus();
+  protected check = this.userverice.getTokenExpired();
+  protected emailLogin = this.userverice.getTokenData()
+    ? this.userverice.getTokenData().email || ''
+    : '';
 
   onclick() {
     console.log('Quak');

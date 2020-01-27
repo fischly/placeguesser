@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PosutilService } from '../posutil.service';
 import { GamestateService } from '../gamestate.service';
 import { state } from '@angular/animations';
@@ -14,14 +14,17 @@ import { GameState } from '../GameStateEnum';
   styleUrls: ['./pano-view.component.css']
 })
 export class PanoViewComponent implements OnInit {
+  @Input() givenId: number;
   panorama: google.maps.StreetViewPanorama;
 
   constructor(private posUtilService: PosutilService, private gameStateService: GamestateService) {
+    console.log('PANO ON CTOR, givenId: ', this.gameStateService.getCurrentState());
     this.gameStateService.registerOnStateChange(this.onGameStateChanged.bind(this)); // bind callback, so this will referr to this component
   }
 
   ngOnInit() {
     // let centerPlace = new google.maps.LatLng(46.646, 14.081);
+    console.log('PANO ON INIT, givenId: ', this.gameStateService.getCurrentState());
 
     this.panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), {
       // position: data.location.latLng,
@@ -32,7 +35,12 @@ export class PanoViewComponent implements OnInit {
       // showRoadLabels: false,
     });
 
-    if (
+    // console.log('CURRENT STATE @ PANO INIT:', this.gameStateService.getCurrentState());
+
+    if (this.gameStateService.getCurrentState() === GameState.LOCATION_ID) {
+      console.log('not fetching random img, id:', this.gameStateService.gutCurrentLocationId());
+      this.nextLocationById(this.gameStateService.gutCurrentLocationId());
+    } else if (
       this.gameStateService.getCurrentState() === GameState.NEW_ROUND &&
       this.gameStateService.getCurrentLocation() != null
     ) {
@@ -80,12 +88,30 @@ export class PanoViewComponent implements OnInit {
 
   nextLocationRandom() {
     this.posUtilService.fetchCityPosition().then((data: any) => {
-      this.gameStateService.stateNewRound(data.location);
+      console.log('GOT NEXT LOCATION DATA: ', data);
+      this.gameStateService.stateNewRound(data.location, data.ownId);
       // this.panorama.setPosition(data.location.latLng);
     });
     // this.panorama.setPosition(data.location.latLng);
   }
 
+  nextLocationById(id) {
+    this.posUtilService
+      .fetchCityById(id)
+      .then((data: any) => {
+        console.log('GOT NEXT LOCATION BY ID: ', data);
+        this.gameStateService.stateNewRound(data.location, data.ownId);
+      })
+      .catch(err => {
+        console.log('EROR FETCHING BY ID:', err);
+        if (err.statusText == 'Not Found') {
+          // TODO: error popup
+          alert(`given id could not be found (${id})`);
+        }
+      });
+  }
+
+  // TODO: implement fully
   nextLocationCity() {
     this.posUtilService.fetchCityPosition();
   }
