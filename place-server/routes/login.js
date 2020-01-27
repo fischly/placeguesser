@@ -2,6 +2,8 @@ let cfg = require('../config.json')
 const express = require('express');
 const router = express.Router();
 const getDb = require("../db").getDb;
+const jwt = require('jsonwebtoken');
+
 
 router.post('/:email/:pass', (req, res) => {
     const db = getDb();
@@ -24,18 +26,24 @@ router.post('/:email/:pass', (req, res) => {
         }
         console.log('result:', dbres);
         console.log('result:', dbres.rows);
+        // TODO: implement hashes with salt
         let success = dbres.rows.filter(row => row.email === email && row.password === pass);
 
         console.log('sucessfull login rows:', success);
 
         if (success.length > 0) {
-            res.status(200).json(success);
+            let token = jwt.sign({
+                exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7), // expires in 7 days
+                email: email 
+            }, pass);
+            res.status(200).send(token);
+            // res.status(200).text('found');
         } else {
             res.status(401).send('Wrong credentials, sorry');
         }
 
         // console.log('RESULTS:', dbres.rows);
-        // res.status(200).json(dbres.rows);
+        // res.status(200).json(dbres.rows); 
         // res.json(res.rows);
         // res.send('success');
         // client.end();

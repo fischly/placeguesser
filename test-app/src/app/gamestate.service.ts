@@ -33,7 +33,6 @@ export class GamestateService {
   }
 
   stateSubmit() {
-    // this.currentState = 'SHOW_RESULT';
     this.currentState = GameState.SHOW_RESULT;
 
     this.callbacks.forEach(cb => {
@@ -63,9 +62,6 @@ export class GamestateService {
   }
 
   getResultDistance() {
-    console.log('curr loc:', this.currentLocation);
-    console.log('mark loc:', this.currentMapMarker);
-
     return this.posUtilService.calculateDistance(
       this.currentLocation.latLng,
       this.currentMapMarker
