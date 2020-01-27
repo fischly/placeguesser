@@ -1,11 +1,16 @@
 <h1>Login</h1>
 
-<form [formGroup]="userform" (ngSubmit)="onFormSubmit()">
+
+<form [formGroup]="userform" (ngSubmit)="onFormSubmit()" *ngIf="!this.userService.getTokenExpired()">
     <label>Email:</label>
     <input type="email" formControlName="email">
     <label>Password:</label>
-    <input type ="password" formControlName="pass">
+    <input type="password" formControlName="pass">
     <input type="submit">
     <span>{{Msg}}</span>
-    
+
 </form>
+
+<p *ngIf="this.userService.getTokenExpired()">
+    Hello, {{ this.userService.getTokenData().email || '' }} youre already logged in.
+</p>

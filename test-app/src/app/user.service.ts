@@ -22,20 +22,62 @@ export class UserService {
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   public login(uemail, upass) {
-    this.httpClient
-      .post(this.loginUrl, { email: uemail, pass: upass })
-      .toPromise()
-      .then(res => {
-        console.log(res);
+    // this.httpClient
+    //   .post(this.loginUrl, { email: uemail, pass: upass })
+    //   .toPromise()
+    //   .then(res => {
+    //     console.log(res);
 
-        if (res == 'found') {
-          console.log('YEAH');
-          localStorage.setItem('loggedIn', 'true');
+    //     if (res == 'found') {
+    //       console.log('YEAH');
+    //       localStorage.setItem('loggedIn', 'true');
 
-          this.getprofiledata(uemail);
+    //       // this.getprofiledata(uemail);
+    //     }
+    //   })
+    //   .catch(err => console.log(err));
+    fetch(`http://localhost:3000/login/${uemail}/${upass}`, { method: 'POST' })
+      .then(resp => {
+        console.log('response: ', resp);
+        if (resp.status !== 200) {
+          throw 'wrong credentials at login';
+        } else {
+          return resp.text();
         }
       })
-      .catch(err => console.log(err));
+      .then(token => {
+        console.log('logged in, jwt: ', token);
+        localStorage.setItem('loggedInToken', token);
+      })
+      .catch(err => console.log('login fetch error: ', err));
+  }
+
+  public getToken() {
+    return localStorage.getItem('loggedInToken') || '';
+  }
+
+  public getTokenData() {
+    let token = localStorage.getItem('loggedInToken') || '';
+    let dataSlice = token.slice(token.indexOf('.') + 1, token.lastIndexOf('.'));
+    let decodedDataSlice = atob(dataSlice);
+
+    if (!decodedDataSlice) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(decodedDataSlice);
+    } catch (ex) {
+      return null;
+    }
+  }
+
+  public getTokenExpired() {
+    let token = this.getTokenData(); //.exp * 1000;
+    if (token) {
+      let tokenExp = token.exp * 1000;
+      return tokenExp > Date.now();
+    }
   }
 
   public register(uname, uemail, upass) {
@@ -60,9 +102,9 @@ export class UserService {
     setTimeout(() => {
       this.username = null;
       this.useremail = null;
-      localStorage.setItem('loggedIn', 'false');
-      localStorage.clear();
-      window.location.reload();
+      localStorage.setItem('loggedInToken', '');
+      this.router.navigate(['/home']);
+      // window.location.reload();
     }, 1000);
   }
 

@@ -25,6 +25,9 @@ export class LoginComponent implements OnInit {
     let email = this.userform.getRawValue().email;
     let pass = this.userform.getRawValue().pass;
 
+    console.log('email: ', email);
+    console.log('passw: ', pass);
+
     if (email == null || pass == null) {
       this.Msg = 'Missing Email or Password';
       return;
@@ -33,5 +36,11 @@ export class LoginComponent implements OnInit {
     this.userService.login(email, pass);
 
     this.userform.reset();
+
+    setTimeout(() => {
+      if (this.userService.getTokenExpired()) {
+        location.reload();
+      }
+    }, 800);
   }
 }

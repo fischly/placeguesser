@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 
 router.post('/:email/:pass', (req, res) => {
     const db = getDb();
-
+    
     // console.log('end');
     // res.status(200).json();
     // return;
@@ -35,7 +35,7 @@ router.post('/:email/:pass', (req, res) => {
             let token = jwt.sign({
                 exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7), // expires in 7 days
                 email: email 
-            }, pass);
+            }, 'testtokenpw' /* pass */); // TODO: use user password
             res.status(200).send(token);
             // res.status(200).text('found');
         } else {
