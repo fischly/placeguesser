@@ -4,14 +4,12 @@ const router = express.Router();
 const getDb = require("../db").getDb;
 const jwt = require("jsonwebtoken");
 
-const getUserIdByEmail = require('../dbHelper').getUserIdByEmail;
+const getUserIdByEmail = require("../dbHelper").getUserIdByEmail;
 const checkAuth = require("../checkAuth").checkAuth;
 
-
-router.post("/:locid", (req, res) => {
+router.post("/", (req, res) => {
   const db = getDb();
 
-  const loc_id = req.params.locid;
   const authorization = req.header("Authorization");
 
   console.log("authorization: ", authorization);
@@ -22,31 +20,25 @@ router.post("/:locid", (req, res) => {
     return;
   }
 
-  if (!loc_id || loc_id < 0) {
-    res.status(400).json({ error: "location id is invalid" });
-    return;
-  }
-
   const userEmail = token.email;
 
   getUserIdByEmail(userEmail).then(
     userId => {
       db.query(
-        `INSERT INTO public.favorites (user_id, loc_id) VALUES (${userId}, ${loc_id})`,
+        `SELECT loc_id FROM public.favorites WHERE user_id = '${userId}'`,
         (err, dbres) => {
           if (err) {
-            console.error("database error while inserting favorite:", err);
+            console.error("database error while getting favorite:", err);
             res.status(400).json({ error: err });
             return;
           }
 
-          res
-            .status(200)
-            .json({
-              message: "added to favorites",
-              userId: userId,
-              locid: loc_id
-            });
+          console.log('getFavs:', dbres);
+          res.status(200).json({
+            message: "fetched favorites",
+            userId: userId,
+            favs: dbres.rows
+          });
           return;
         }
       );

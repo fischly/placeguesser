@@ -17,10 +17,14 @@ app.use(bodyParser.json()); // support json encoded bodies
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
 const svdataRoutes = require('./routes/svData');
+const addFavoritesRoutes = require('./routes/addFavorite');
+const getFavoritesRoutes = require('./routes/getFavorites');
 
 app.use("/login", loginRoutes);
 app.use('/register', registerRoutes);
 app.use('/getPosition', svdataRoutes);
+app.use('/addFavorite', addFavoritesRoutes);
+app.use('/getFavorites', getFavoritesRoutes);
 
 // default route
 app.use("/", (req, res) => {

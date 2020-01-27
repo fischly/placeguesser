@@ -1,3 +1,7 @@
-<h1>Higscores</h1>
+<h1>Favorites</h1>
 
-work in progress...
+<ul>
+  <li *ngFor="let fav of favorites">
+    <a [routerLink]=[fav.link]>{{ fav.link }}</a>
+  </li>
+</ul>
