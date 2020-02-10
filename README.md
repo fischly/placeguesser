@@ -16,7 +16,7 @@ Abschlussprojekt für WebTech
 
 
 ### Installing
-
+(Falls mein Pi läuft, hier als Vorschau: http: // fischly . freemy ip .com:8080)
 
 Das git Repository clonen:
 
