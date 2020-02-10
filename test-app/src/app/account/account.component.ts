@@ -50,9 +50,16 @@ export class AccountComponent implements OnInit {
 
     }
 
-    
 
-    this.userService.register(user,email,pass);
+
+    this.userService.register(user,email,pass).then((succ) => {
+      setTimeout(() => {
+	    window.location.href = '/login';
+        //this.router.navigate(['/login']);
+      }, 600);
+	}, (err) => { 
+		console.log('error:', err);
+	});
 
     this.userform.reset();
 }

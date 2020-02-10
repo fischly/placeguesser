@@ -21,7 +21,7 @@ export class MapViewComponent implements OnInit {
   selectionMarker: google.maps.Marker;
 
   constructor(private gameStateService: GamestateService) {
-    this.gameStateService.registerOnStateChange(this.onGameStateChanged.bind(this));
+    this.gameStateService.registerOnStateChange(this.onGameStateChanged.bind(this), 'MAP');
   }
 
   ngOnInit() {
@@ -43,6 +43,13 @@ export class MapViewComponent implements OnInit {
     if (stateData.state === GameState.SHOW_RESULT) {
       this.panoMarker.setPosition(this.gameStateService.getCurrentLocation().latLng);
       this.panoMarker.setVisible(true);
+
+      this.map.fitBounds(
+        new google.maps.LatLngBounds(
+          this.panoMarker.getPosition(),
+          this.selectionMarker.getPosition()
+        )
+      );
     }
   }
 
@@ -214,6 +221,6 @@ export class MapViewComponent implements OnInit {
     this.gmapElement.nativeElement.style.width = '200px';
     this.gmapElement.nativeElement.style.height = '200px';
 
-    this.map.setCenter(this.selectionMarker.getPosition());
+    // this.map.setCenter(this.selectionMarker.getPosition());
   }
 }

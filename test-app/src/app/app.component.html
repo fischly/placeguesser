@@ -12,13 +12,13 @@
   <a *ngIf="!check" routerLink="/account">Create Account</a>
   <a routerLink="/qguide">Quick Guide</a>
 
-  <a *ngIf="check" routerLink="/profile">Profile</a>
-  <a routerLink="/highscores">Highscores</a>
+  <!-- <a *ngIf="check" routerLink="/profile">Profile</a> -->
+  <a *ngIf="check" routerLink="/highscores">Favourites</a>
   <a routerLink="/about">About</a>
   <button *ngIf="!check" (click)="login()">login</button>
-  <button *ngIf="check" (click)="onclick()">logout</button>
+  <button *ngIf="check" (click)="logout()">logout</button>
 
-  <a id="btn-submit" (click)="onClickSubmit()">Submit</a>
+  <a id="btn-submit" [ngClass]="submitButtonInfo.cssClasses" (click)="onClickSubmit()">Submit</a>
 
 </nav>
 

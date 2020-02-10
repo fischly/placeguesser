@@ -5,8 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AccountComponent } from './account/account.component';
 
-import { ProductListComponent } from './product-list/product-list.component';
-import { TopBarComponent } from './top-bar/top-bar.component';
 import { RouterModule, Routes } from '@angular/router';
 import { PanoViewComponent } from './pano-view/pano-view.component';
 
@@ -27,7 +25,6 @@ import { DialogPassComponent } from './dialog-pass/dialog-pass.component';
 import { DialogUserComponent } from './dialog-user/dialog-user.component';
 import { LogGuardService } from './log-guard.service';
 import { MapViewComponent } from './map-view/map-view.component';
-import { GameViewComponent } from './game-view/game-view.component';
 import { ResultViewComponent } from './result-view/result-view.component';
 
 /* even tho @types/googlemaps is installed, angular/ts compiler does not recognise it */
@@ -41,11 +38,11 @@ declare var google;
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent,
-    TopBarComponent,
     PanoViewComponent,
-    AccountComponent,
+    MapViewComponent,
+    ResultViewComponent,
     HomeComponent,
+    AccountComponent,
     AboutComponent,
     LoginComponent,
     ProfileComponent,
@@ -53,10 +50,7 @@ declare var google;
     HighscoresComponent,
     DialogDelteComponent,
     DialogPassComponent,
-    DialogUserComponent,
-    MapViewComponent,
-    GameViewComponent,
-    ResultViewComponent
+    DialogUserComponent
   ],
   entryComponents: [DialogDelteComponent, DialogPassComponent, DialogUserComponent],
   imports: [

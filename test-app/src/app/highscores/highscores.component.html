@@ -1,7 +1,11 @@
 <h1>Favorites</h1>
-
-<ul>
-  <li *ngFor="let fav of favorites">
-    <a [routerLink]=[fav.link]>{{ fav.link }}</a>
-  </li>
-</ul>
+<!-- rgb(255, 177, 105) -->
+<div id="fav-container">
+  <div class="fav-spacer"></div>
+  <ul>
+    <li *ngFor="let fav of favorites">
+      <a [routerLink]=[fav.link]>{{ fav.link }}</a>
+    </li>
+  </ul>
+  <div class="fav-spacer"></div>
+</div>

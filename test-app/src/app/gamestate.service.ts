@@ -18,10 +18,10 @@ export class GamestateService {
     this.callbacks = new Array<(value: any) => void>();
   }
 
-  // registerOnStateChange(callback: (resolve: (value: any) => void) => void) {
-  registerOnStateChange(callback: (value: any) => void) {
+  registerOnStateChange(callback: (value: any) => void, callee: string) {
     // callback(res => res);
-    this.callbacks.push(callback);
+    this.callbacks[callee] = callback;
+    // this.callbacks.push(callback);
   }
 
   stateNewRound(newLocation, newLocationId = -1) {
@@ -30,25 +30,28 @@ export class GamestateService {
     this.currentLocationId = newLocationId;
     console.log('NEW LOCATION ID: ', this.currentLocationId);
 
-    this.callbacks.forEach(cb => {
-      cb({ state: this.currentState, location: this.currentLocation });
-    });
+    this.callCallbacks();
+    // this.callbacks.forEach(cb => {
+    //   cb({ state: this.currentState, location: this.currentLocation });
+    // });
   }
 
   stateSubmit() {
     this.currentState = GameState.SHOW_RESULT;
-
-    this.callbacks.forEach(cb => {
-      cb({ state: this.currentState });
-    });
+    this.callCallbacks();
   }
 
   stateNext() {
     this.currentState = GameState.NEXT_ROUND;
-    console.log('NEXT ROUND');
-    this.callbacks.forEach(cb => {
-      cb({ state: this.currentState });
-    });
+    this.callCallbacks();
+  }
+
+  callCallbacks() {
+    for (let cb in this.callbacks) {
+      if (this.callbacks[cb]) {
+        this.callbacks[cb]({ state: this.currentState, location: this.currentLocation });
+      }
+    }
   }
 
   stateById(id) {

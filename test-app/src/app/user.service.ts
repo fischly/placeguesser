@@ -36,11 +36,14 @@ export class UserService {
     //     }
     //   })
     //   .catch(err => console.log(err));
+
+    // with method: POST, uemail and upass gets put in the requests body, even tho it might
+    // look like params here
     fetch(`http://localhost:3000/login/${uemail}/${upass}`, { method: 'POST' })
       .then(resp => {
         console.log('response: ', resp);
         if (resp.status !== 200) {
-          throw 'wrong credentials at login';
+          throw new Error('wrong credentials at login');
         } else {
           return resp.text();
         }
@@ -73,7 +76,7 @@ export class UserService {
   }
 
   public getTokenExpired() {
-    let token = this.getTokenData(); //.exp * 1000;
+    let token = this.getTokenData();
     if (token) {
       let tokenExp = token.exp * 1000;
       return tokenExp > Date.now();
@@ -81,31 +84,46 @@ export class UserService {
   }
 
   public register(uname, uemail, upass) {
-    this.httpClient
-      .post(this.registerUrl, { user: uname, email: uemail, pass: upass })
-      .toPromise()
-      .then(res => {
-        console.log(res);
-        if (res == 'aexists') localStorage.setItem('emailexists', 'true');
-        else if (res == 'registered') {
-          console.log('YEAH');
-          localStorage.setItem('emailexists', 'true');
-          setTimeout(() => {
-            this.router.navigate(['/login']);
-          }, 1000);
-        }
-      })
-      .catch(err => console.log(err));
+    return new Promise((resolve, reject) => {
+      this.httpClient
+        .post(this.registerUrl, { user: uname, email: uemail, pass: upass })
+        .toPromise()
+        .then((res: any) => {
+          console.log(res);
+          if (res.status != 200) {
+            // display error message
+            reject(res.error);
+            return;
+          }
+          if (res.status == 200) {
+            console.log('YEAH');
+            // display success message
+            resolve(res.status);
+            return;
+            // setTimeout(() => {
+            //   this.router.navigate(['/login']);
+            // }, 600);
+          }
+        })
+        .catch(err => {
+          if (err.status && err.status == 200) {
+            resolve(200);
+          }
+          reject(err);
+        });
+    });
   }
 
   public logout() {
-    setTimeout(() => {
-      this.username = null;
-      this.useremail = null;
-      localStorage.setItem('loggedInToken', '');
-      this.router.navigate(['/home']);
-      // window.location.reload();
-    }, 1000);
+    localStorage.setItem('loggedInToken', '');
+    this.router.navigate(['/home']);
+    window.location.reload();
+
+    // setTimeout(() => {
+    //   // localStorage.setItem('loggedInToken', '');
+    //   this.router.navigate(['/home']);
+    //   // window.location.reload();
+    // }, 200);
   }
 
   getStatus() {

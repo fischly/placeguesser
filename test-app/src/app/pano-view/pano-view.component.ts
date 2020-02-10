@@ -14,12 +14,11 @@ import { GameState } from '../GameStateEnum';
   styleUrls: ['./pano-view.component.css']
 })
 export class PanoViewComponent implements OnInit {
-  @Input() givenId: number;
   panorama: google.maps.StreetViewPanorama;
 
   constructor(private posUtilService: PosutilService, private gameStateService: GamestateService) {
     console.log('PANO ON CTOR, givenId: ', this.gameStateService.getCurrentState());
-    this.gameStateService.registerOnStateChange(this.onGameStateChanged.bind(this)); // bind callback, so this will referr to this component
+    // this.gameStateService.registerOnStateChange(this.onGameStateChanged.bind(this)); // bind callback, so this will referr to this component
   }
 
   ngOnInit() {
@@ -73,6 +72,8 @@ export class PanoViewComponent implements OnInit {
     // // new google.maps.StreetViewService();
     // let centerPlace = new google.maps.LatLng(46.646, 14.081);
     // console.log('centerplace: ', centerPlace);
+
+    this.gameStateService.registerOnStateChange(this.onGameStateChanged.bind(this), 'PANO'); // bind callback, so this will referr to this component
   }
 
   onGameStateChanged(stateData) {

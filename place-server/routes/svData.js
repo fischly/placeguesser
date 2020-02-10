@@ -3,16 +3,16 @@ const express = require('express');
 const router = express.Router();
 
 const getDb = require("../db").getDb;
-const streetview = require('../streetview');
 
 const { getCity, getCityById } = require('../loadcities');
 
 
-router.get('/random', (req, res) => {
+// decided to not just offer random locations
+/* router.get('/random', (req, res) => {
     // const db = getDb();
    
-    res.status(200).json(streetview.getLatLngRNG());
-});
+    res.status(200).json(posutil.getLatLngRNG());
+});*/
 
 router.get('/city_eu', (req, res) => {
 

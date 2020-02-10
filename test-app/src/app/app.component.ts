@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { GamestateService } from './gamestate.service';
 // import { get } from 'scriptjs';
 
@@ -12,19 +12,38 @@ import { GamestateService } from './gamestate.service';
 export class AppComponent implements OnInit {
   title = 'test-app';
 
+  submitButtonInfo: any;
+
   constructor(
     private userverice: UserService,
     private router: Router,
     private gameStateService: GamestateService
-  ) {}
+  ) {
+    this.submitButtonInfo = {};
+
+    this.router.events.subscribe(ev => {
+      if (ev instanceof NavigationStart) {
+        console.log('ROUTER EVENT: ', ev);
+
+        // render submit button disabled if panorama is not displayed/on the current route
+        if (ev.url.indexOf('/home') < 0) {
+          this.submitButtonInfo.cssClasses = 'btn-disabled';
+        } else {
+          this.submitButtonInfo.cssClasses = '';
+        }
+
+        // let regexResult = ev.url.match('/.+/(g?\\d+)');
+        // if (ev.url.match("")
+      }
+    });
+  }
 
   protected check = this.userverice.getTokenExpired();
   protected emailLogin = this.userverice.getTokenData()
     ? this.userverice.getTokenData().email || ''
     : '';
 
-  onclick() {
-    console.log('Quak');
+  logout() {
     this.userverice.logout();
   }
 

@@ -1,0 +1,36 @@
+#fav-container {
+  display: flex;
+}
+
+#fav-container ul {
+  list-style: none;
+  padding-left: 0px;
+
+  /* margin-left: 10vw;
+  margin-right: 10vw; */
+  /* margin-left: auto;
+  margin-right: auto; */
+
+  flex: 7;
+
+  text-align: center;
+}
+
+#fav-container ul li {
+  background-color: rgb(255, 177, 105);
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 8px;
+
+  font-size: 1.2em;
+  /* max-width: 750px; */
+}
+
+#fav-container ul li a {
+  color: black;
+}
+
+.fav-spacer {
+  flex: 2;
+}

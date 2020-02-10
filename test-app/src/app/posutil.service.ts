@@ -106,7 +106,7 @@ export class PosutilService {
   }
 
   calculateDistance(point1: google.maps.LatLng, point2: google.maps.LatLng) {
-    const R = 6378137; // Constant 6378137 represents earth radius.
+    const R = 6378137; //  6378137 stands for earth's radius
     const lat1 = point1.lat();
     const lat2 = point2.lat();
     const lon1 = point1.lng();
@@ -115,15 +115,15 @@ export class PosutilService {
     let dLat = this.toRadian(lat2 - lat1);
     let dLon = this.toRadian(lon2 - lon1);
 
-    let a =
+    let res1 =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(this.toRadian(lat1)) *
         Math.cos(this.toRadian(lat2)) *
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
 
-    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
+    let res2 = 2 * Math.atan2(Math.sqrt(res1), Math.sqrt(1 - res1));
+    return R * res2;
   }
 
   private toRadian(deg) {
